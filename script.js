@@ -1,5 +1,5 @@
 // ⚠️ ЗАМЕНИТЕ НА СВОЙ КЛЮЧ С https://www.exchangerate-api.com
-const API_KEY = 'your_api_key_here';
+const API_KEY = 'fbb888721138e7b5c1ac79e4';
 
 const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`;
 
