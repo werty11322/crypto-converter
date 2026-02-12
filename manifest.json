@@ -1,9 +1,9 @@
 {
-  "id": "/",
+  "id": "/crypto-converter/",
   "dir": "ltr",
   "lang": "en",
   "name": "Crypto Converter",
-  "scope": "/",
+  "scope": "/crypto-converter/",
   "display": "standalone",
   "start_url": "index.html",
   "short_name": "CryptoConv",
