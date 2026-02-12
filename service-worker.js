@@ -1,12 +1,11 @@
 const CACHE_NAME = 'crypto-converter-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  'index.html',
+  'style.css',
+  'script.js',
+  'manifest.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 // Установка сервис-воркера
@@ -62,7 +61,7 @@ self.addEventListener('fetch', event => {
           })
           .catch(() => {
             // Если нет интернета — возвращаем кэш
-            return caches.match('/');
+            return caches.match('index.html');
           });
       })
   );
