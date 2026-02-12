@@ -11,14 +11,14 @@
     <title>Crypto Converter — Currency & Bitcoin</title>
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     
     <!-- Иконки -->
-    <link rel="apple-touch-icon" href="/icon-192.png">
-    <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/icon-512.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="icon-512.png" sizes="512x512">
     
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -72,13 +72,13 @@
         </div>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
     
     <!-- Регистрация сервис-воркера -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
+                navigator.serviceWorker.register('service-worker.js')
                     .then(registration => {
                         console.log('ServiceWorker registered:', registration.scope);
                     })
