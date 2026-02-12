@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Converter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .rates {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .rate-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .crypto-badge {
+            display: inline-block;
+            background: #ff9a00;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💱 Конвертер валют</h1>
+        
+        <div class="input-group">
+            <label>Сумма</label>
+            <input type="number" id="amount" value="1" min="0" step="any">
+        </div>
+        
+        <div class="input-group">
+            <label>Из валюты</label>
+            <select id="from">
+                <option value="USD">USD — Доллар США</option>
+                <option value="EUR">EUR — Евро</option>
+                <option value="RUB">RUB — Рубль</option>
+                <option value="BRL">BRL — Бразильский реал</option>
+                <option value="MXN">MXN — Мексиканское песо</option>
+                <option value="NGN">NGN — Нигерийская найра</option>
+                <option value="INR">INR — Индийская рупия</option>
+                <option value="BTC">BTC — Bitcoin <span class="crypto-badge">₿</span></option>
+                <option value="ETH">ETH — Ethereum <span class="crypto-badge">Ξ</span></option>
+                <option value="USDT">USDT — Tether <span class="crypto-badge">₮</span></option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label>В валюту</label>
+            <select id="to">
+                <option value="USD">USD — Доллар США</option>
+                <option value="EUR">EUR — Евро</option>
+                <option value="RUB" selected>RUB — Рубль</option>
+                <option value="BRL">BRL — Бразильский реал</option>
+                <option value="MXN">MXN — Мексиканское песо</option>
+                <option value="NGN">NGN — Нигерийская найра</option>
+                <option value="INR">INR — Индийская рупия</option>
+                <option value="BTC">BTC — Bitcoin <span class="crypto-badge">₿</span></option>
+                <option value="ETH">ETH — Ethereum <span class="crypto-badge">Ξ</span></option>
+                <option value="USDT">USDT — Tether <span class="crypto-badge">₮</span></option>
+            </select>
+        </div>
+        
+        <div class="result" id="result">
+            Загрузка курсов...
+        </div>
+        
+        <div class="rates" id="rates">
+            <!-- Курсы подставятся автоматически -->
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'your_api_key_here'; // Получите бесплатно на https://exchangerate-api.com
+        const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`;
+        
+        let ratesData = null;
+        let cryptoRates = {
+            BTC: 60000,
+            ETH: 3000,
+            USDT: 1
+        };
+        
+        async function fetchRates() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                ratesData = data.conversion_rates;
+                
+                // Добавляем крипто-курсы
+                ratesData.BTC = 1 / cryptoRates.BTC;
+                ratesData.ETH = 1 / cryptoRates.ETH;
+                ratesData.USDT = 1 / cryptoRates.USDT;
+                
+                calculate();
+                showRates();
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Ошибка загрузки курсов';
+                console.error('Error:', error);
+            }
+        }
+        
+        function calculate() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            
+            if (!ratesData) return;
+            
+            let result = amount;
+            
+            if (from === 'USD') {
+                result = amount * ratesData[to];
+            } else if (to === 'USD') {
+                result = amount / ratesData[from];
+            } else {
+                result = (amount / ratesData[from]) * ratesData[to];
+            }
+            
+            document.getElementById('result').innerHTML = `${amount} ${from} = ${result.toFixed(4)} ${to}`;
+        }
+        
+        function showRates() {
+            const container = document.getElementById('rates');
+            container.innerHTML = '<h3 style="text-align:center;color:#555;margin-bottom:15px">Текущие курсы (к 1 USD)</h3>';
+            
+            const currencies = ['EUR', 'RUB', 'BRL', 'MXN', 'NGN', 'INR', 'BTC', 'ETH', 'USDT'];
+            
+            currencies.forEach(curr => {
+                const rate = ratesData[curr];
+                const name = document.querySelector(`#from option[value="${curr}"]`).textContent;
+                container.innerHTML += `
+                    <div class="rate-item">
+                        <span>${name}</span>
+                        <span>${rate.toFixed(4)} ${curr}</span>
+                    </div>
+                `;
+            });
+        }
+        
+        // События
+        document.getElementById('amount').addEventListener('input', calculate);
+        document.getElementById('from').addEventListener('change', calculate);
+        document.getElementById('to').addEventListener('change', calculate);
+        
+        // Загрузка при старте
+        fetchRates();
+        
+        // Обновление каждые 5 минут
+        setInterval(fetchRates, 300000);
+    </script>
+</body>
+</html>
