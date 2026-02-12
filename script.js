@@ -12,6 +12,20 @@ const CRYPTO_RATES = {
     USDT: 1       // 1 USDT = $1
 };
 
+// Проверка интернета
+window.addEventListener('offline', () => {
+    const indicator = document.createElement('div');
+    indicator.className = 'offline-indicator';
+    indicator.textContent = '⚠️ Нет интернета. Работает оффлайн-режим.';
+    document.body.insertBefore(indicator, document.body.firstChild);
+    indicator.style.display = 'block';
+});
+
+window.addEventListener('online', () => {
+    const indicator = document.querySelector('.offline-indicator');
+    if (indicator) indicator.style.display = 'none';
+});
+
 async function fetchRates() {
     try {
         const response = await fetch(API_URL);
