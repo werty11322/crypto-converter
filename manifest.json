@@ -5,7 +5,7 @@
   "name": "Crypto Converter",
   "scope": "/crypto-converter/",
   "display": "standalone",
-  "start_url": "index.html",
+  "start_url": "/crypto-converter/",
   "short_name": "CryptoConv",
   "theme_color": "#667eea",
   "description": "Currency and crypto converter with real-time exchange rates. Supports USD, EUR, RUB, BRL, MXN, NGN, INR, ZAR and cryptocurrencies (BTC, ETH, USDT).",
@@ -17,10 +17,10 @@
   ],
   "screenshots": [
     {
-      "src": "screenshots/screen1.png"
+      "src": "/crypto-converter/screenshots/screen1.png"
     },
     {
-      "src": "screenshots/screen2.png"
+      "src": "/crypto-converter/screenshots/screen2.png"
     }
   ],
   "features": [
@@ -31,25 +31,25 @@
   ],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/crypto-converter/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-192.png",
+      "src": "/crypto-converter/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/crypto-converter/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "/crypto-converter/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -67,10 +67,10 @@
       "name": "Convert USD to RUB",
       "short_name": "USD → RUB",
       "description": "Quick convert USD to Russian Ruble",
-      "url": "index.html?from=USD&to=RUB",
+      "url": "/crypto-converter/?from=USD&to=RUB",
       "icons": [
         {
-          "src": "icon-192.png",
+          "src": "/crypto-converter/icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -79,10 +79,10 @@
       "name": "Convert BTC to USD",
       "short_name": "BTC → USD",
       "description": "Quick convert Bitcoin to USD",
-      "url": "index.html?from=BTC&to=USD",
+      "url": "/crypto-converter/?from=BTC&to=USD",
       "icons": [
         {
-          "src": "icon-192.png",
+          "src": "/crypto-converter/icon-192.png",
           "sizes": "192x192"
         }
       ]
