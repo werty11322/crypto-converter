@@ -7,8 +7,14 @@
 /icon-512.png
   Content-Type: image/png
 
-/*.css
+/style.css
   Content-Type: text/css
 
-/*.js
+/script.js
   Content-Type: application/javascript
+
+/service-worker.js
+  Content-Type: application/javascript
+
+/index.html
+  Content-Type: text/html
