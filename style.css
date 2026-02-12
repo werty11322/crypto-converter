@@ -92,3 +92,18 @@ input:focus, select:focus {
     font-size: 12px;
     margin-left: 5px;
 }
+
+/* Индикатор оффлайн-режима */
+.offline-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ff4444;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+    display: none;
+    z-index: 9999;
+}
